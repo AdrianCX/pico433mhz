@@ -94,8 +94,26 @@ The antenna is a simple power copper wire, should be 17.2cm and straight. It goe
 Without antenna, there's not enough power to transmit more then a few cm. (same for receiver)
 The 433mhz rx/tx pair work fine with 3.3V.
 
-A few more pictures:
+Tools needed:
 ![Alt text](/pictures/whatsneeded.jpg "")
 
 This replaces old style remotes for led lights:
 ![Alt text](/pictures/replacement.jpg "")
+
+### 3.3. Antenna
+
+For antenna I used regular copper wire that is normally used for wiring lights inside house.
+Any copper wire will work if it's held straight (including the jumper cables above, I tried, they work fine)
+I used solid core since it will stay straight without anything else holding it.
+
+Measure to 17.5 or higher: (since we're gonna cut up a bit)
+![Alt text](/pictures/antenna_1.jpg "")
+
+Chip at copper until it can fit the antenna port
+![Alt text](/pictures/antenna_2.jpg "")
+
+Push the cabble through back of the card inside the port. (Then twist the other end so it doesn't come loose)
+![Alt text](/pictures/antenna_3.jpg "")
+
+Use some tape or glue or both on the other side to have antenna stuck on card
+![Alt text](/pictures/antenna_4.jpg "")
