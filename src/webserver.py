@@ -4,6 +4,7 @@ import time
 import re
 import rfdevice
 import config
+import machine
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
@@ -18,7 +19,9 @@ while max_wait > 0:
     time.sleep(1)
 
 if wlan.status() != 3:
-    raise RuntimeError('network connection failed')
+    print("Failed connecting to wifi, will restart in 30 seconds")
+    time.sleep(30)
+    machine.reset()
 else:
     status = wlan.ifconfig()
     print('connected with ip = ' + status[0] )
