@@ -39,7 +39,6 @@ sender = rfdevice.RFDevice()
 sender.enable_tx()
     
 receiver = rfdevice.RFDevice()
-receiver.enable_rx()
 
 while True:
     try:
@@ -51,6 +50,7 @@ while True:
             m = re.search("GET /(receive|send)[/]?([0-9]*)?[/]?([0-9]*)[/]?([0-9]*)? HTTP", str(request))
         
             if m.group(1) == "receive":
+                receiver.enable_rx()
                 cl.sendall('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n[')
                 timestamp = None
                 start = time.ticks_ms()
@@ -63,6 +63,7 @@ while True:
                             cl.sendall(',\n{ "code": "' + str(receiver.rx_code) + '", "pulselength": "' + str(receiver.rx_pulselength) + '", "protocol": "' + str(receiver.rx_proto) + '" }')        
                     time.sleep(0.5)
                 cl.send(']')
+                receiver.disable_rx()
             if m.group(1) == "send":
                 sender.tx_code(int(m.group(2)), int(m.group(3)), int(m.group(4)))
                 cl.sendall('HTTP/1.0 200 OK\r\n\r\n')
