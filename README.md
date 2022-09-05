@@ -72,8 +72,8 @@ d. Either
 - OR charger - Raspberry Pi PSU 5.1V 2.5A MicroUSB - EU-plug - https://www.kiwi-electronics.com/nl/raspberry-pi-psu-5-1v-2-5a-microusb-eu-plug-10809?search=microusb%20
 
 e. Antenna cable
-- Bought at hardware store, but this seems to be similar to what I used: https://www.amazon.nl/dp/B000VDAK5Q/ref=mp_s_a_1_5?crid=1W9J9X8D5FRR8&keywords=stroomdraad&sprefix=power%2Bwire%2Caps%2C144&sr=8-5&th=1&psc=1
-- Can also use one of the jumper wires, it just needs to stay straight.
+- Simple electric cable bought at hardware store works fine,  this seems to be similar but we only need ~18cm at most: https://www.amazon.nl/dp/B000VDAK5Q/ref=mp_s_a_1_5?crid=1W9J9X8D5FRR8&keywords=stroomdraad&sprefix=power%2Bwire%2Caps%2C144&sr=8-5&th=1&psc=1
+- Can also use one of the jumper wires if you connect copper to the antenna port, it just needs to stay straight.
 - It needs to be 17.2cm or longer and stay straight for transmitting things.
 
 f. Extra fun pieces:
@@ -93,7 +93,7 @@ There are multiple ground ports but I used the same trick as for 3.3V
 Did not solder (I should), it still works fine with copper twisted to the pin.
 Pins for data are GPIO 27/22.
 
-The antenna is a simple power copper wire, should be 17.2cm and straight. It goes into the antenna port on 433 TX. (can chip at cable with cutter until it fits if it's too large).
+The antenna is a simple power copper wire, should be at least 17.2cm and straight. It goes into the antenna port on 433 TX. (can chip at cable with cutter until it fits if it's too large).
 
 Without antenna, there's not enough power to transmit more then a few cm. (same for receiver)
 The 433mhz rx/tx pair work fine with 3.3V.
@@ -110,7 +110,7 @@ For antenna I used regular copper wire that is normally used for wiring lights i
 Any copper wire will work if it's held straight (including the jumper cables above, I tried, they work fine)
 I used solid core since it will stay straight without anything else holding it.
 
-Measure to 17.5 or higher: (since we're gonna cut up a bit)
+Measure to 18cm or higher: (since we're gonna cut up a bit)
 ![Alt text](/pictures/antenna_1.jpg "")
 
 Chip at copper until it can fit the antenna port

@@ -44,29 +44,33 @@ receiver.enable_rx()
 while True:
     try:
         cl, addr = s.accept()
-        print('client connected from', addr)
-        request = cl.recv(1024)
-        m = re.search("GET /(receive|send)[/]?([0-9]*)?[/]?([0-9]*)[/]?([0-9]*)? HTTP", str(request))
+
+        try:
+            print('client connected from', addr)
+            request = cl.recv(1024)
+            m = re.search("GET /(receive|send)[/]?([0-9]*)?[/]?([0-9]*)[/]?([0-9]*)? HTTP", str(request))
         
-        if m.group(1) == "receive":
-            cl.sendall('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n[')
-            timestamp = None
-            start = time.ticks_ms()
-            while time.ticks_ms() - start < 15000:
-                if receiver.rx_code_timestamp != timestamp:
-                    timestamp = receiver.rx_code_timestamp
-                    if timestamp != None:
-                        cl.sendall('{ "code": "' + str(receiver.rx_code) + '", "pulselength": "' + str(receiver.rx_pulselength) + '", "protocol": "' + str(receiver.rx_proto) + '" }')
-                    else:
-                        cl.sendall(',\n{ "code": "' + str(receiver.rx_code) + '", "pulselength": "' + str(receiver.rx_pulselength) + '", "protocol": "' + str(receiver.rx_proto) + '" }')        
-                time.sleep(0.5)
-            cl.send(']')
-        if m.group(1) == "send":
-            sender.tx_code(int(m.group(2)), int(m.group(3)), int(m.group(4)))
-            cl.sendall('HTTP/1.0 200 OK\r\n\r\n')
+            if m.group(1) == "receive":
+                cl.sendall('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n[')
+                timestamp = None
+                start = time.ticks_ms()
+                while time.ticks_ms() - start < 15000:
+                    if receiver.rx_code_timestamp != timestamp:
+                        timestamp = receiver.rx_code_timestamp
+                        if timestamp != None:
+                            cl.sendall('{ "code": "' + str(receiver.rx_code) + '", "pulselength": "' + str(receiver.rx_pulselength) + '", "protocol": "' + str(receiver.rx_proto) + '" }')
+                        else:
+                            cl.sendall(',\n{ "code": "' + str(receiver.rx_code) + '", "pulselength": "' + str(receiver.rx_pulselength) + '", "protocol": "' + str(receiver.rx_proto) + '" }')        
+                    time.sleep(0.5)
+                cl.send(']')
+            if m.group(1) == "send":
+                sender.tx_code(int(m.group(2)), int(m.group(3)), int(m.group(4)))
+                cl.sendall('HTTP/1.0 200 OK\r\n\r\n')
                 
-        cl.close()
-    except OSError as e:
-        print(e)
-        cl.close()
-        print('connection closed')
+            cl.close()
+        except Exception as e:
+            cl.sendall('HTTP/1.0 500 Internal Server Error\r\nContent-type: text/html\r\n\r\n')
+            cl.sendall(str(e))
+            cl.close()
+    except Exception as e:
+        print('failed accepting socket, continue')
