@@ -71,12 +71,16 @@ d. Either
 - micro-usb cable - 1.25E - https://www.kiwi-electronics.com/nl/microusb-kabel-usb-a-naar-micro-b-15cm-3240?search=microusb%20
 - OR charger - Raspberry Pi PSU 5.1V 2.5A MicroUSB - EU-plug - https://www.kiwi-electronics.com/nl/raspberry-pi-psu-5-1v-2-5a-microusb-eu-plug-10809?search=microusb%20
 
-e. Extra fun pieces:
-- An Ace black heart
+e. Antenna cable
+- Bought at hardware store, but this seems to be similar to what I used: https://www.amazon.nl/dp/B000VDAK5Q/ref=mp_s_a_1_5?crid=1W9J9X8D5FRR8&keywords=stroomdraad&sprefix=power%2Bwire%2Caps%2C144&sr=8-5&th=1&psc=1
+- Can also use one of the jumper wires, it just needs to stay straight.
+- It needs to be 17.2cm or longer and stay straight for transmitting things.
+
+f. Extra fun pieces:
+- an ace of spades
 - double sided tape
 - some M2 screws (x4 or x6 length), nuts and washers to fix raspberry pi (to avoid double sided tape on it)
 - - https://www.amazon.nl/-/en/dp/B08FWTVXDG/ref=sr_1_6?crid=1V9X0MRZYXJKF&keywords=m2*6+moeren&sprefix=m2+6+nuts%2Caps%2C65&sr=8-6
-- electric cable to use as antenna (17.2cm or longer straight wire for transmitting things)
 
 
 ### 3.2. Notes on steps:
