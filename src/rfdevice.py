@@ -123,12 +123,13 @@ class RFDevice:
         print("TX code: " + str(code))
         status = self.tx_bin(rawcode)
 
-        # finish up any pending sleep for 0 bit - so next transmit code doesn't mess our currently sent one.
+        # We must not transmit too often, we also need to make sure we don't corrupt our current message, so wait a bit more between messages if some are chained by caller
+        # 500ms seems excessive, should test and reduce when time allows.
+        self.us_sleep = self.us_sleep + 500000
+        
+        # finish up any pending sleep for 0 bytes - so next transmit code doesn't mess our currently sent one.
         while time.ticks_us() - self.start < self.us_sleep:
             time.sleep_us(1)
-
-        # We must not transmit too often, we also need to make sure we don't corrupt our current message, so wait a bit more between messages if some are chained by caller
-        time.sleep_us(3 * self.tx_pulselength)
             
         return status
 
