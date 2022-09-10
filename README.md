@@ -2,10 +2,16 @@ Simple raspberry pi pico 433mhz receiver/transmitter controlled via http
 
 ![Alt text](/pictures/endproduct.jpg "")
 
+# 1. Possible issues
 
-# 1. How to use when all set up
+a. Pico wireless connection seems unstable with micropython
 
-## 1.1. Sniffing traffic
+Ping works on and off (10 seconds yes, 10 seconds no), requests sometimes time out.
+Avoided on my setup by setting "DTIM Interval", "Delivery Traffic Indication Message Interval" to 1 on my router.
+
+# 2. How to use when all set up
+
+## 2.1. Sniffing traffic
 
 a. Start receiver via a HTTP call. Press remote button you want to sniff a few times once you get 200 OK.
    After 15 seconds it will return all sniffed keys.
@@ -28,7 +34,7 @@ curl -v "http://192.168.100.196:80/receive"
 [{ "code": "14012112", "pulselength": "350", "protocol": "1" }]
 ```
 
-## 1.2. Sending codes
+## 2.2. Sending codes
 
 API: http://[ip-address]/send/[code]/[protocol]/[pulselength]
 
@@ -40,7 +46,7 @@ curl -v "http://192.168.100.196:80/send/14012112/1/350"
 And light should turn on and off.
 
 
-# 2. How to set up software once built
+# 3. How to set up software once built
 
 Set up micropython on pico (use the firmware for 'Raspberry Pi Pico W (with urequests and upip preinstalled)')
 URL https://www.raspberrypi.com/documentation/microcontrollers/micropython.html
@@ -52,9 +58,9 @@ Run webserver.py code with Thonny. (or rename to main.py and let pico run on eac
 It will print the IP address it obtains once it starts up. You can also obtain the IP address from your router and ideally assign a DNS and static IP.
 
 
-# 3. How to make this
+# 4. How to make this
 
-### 3.1. Parts used:
+### 4.1. Parts used:
 
 a. Raspberry pi pico
 - https://www.kiwi-electronics.com/nl/raspberry-pi-pico-w-10938?search=raspberry%20pi%20pico
@@ -83,7 +89,7 @@ f. Extra fun pieces:
 - - https://www.amazon.nl/-/en/dp/B08FWTVXDG/ref=sr_1_6?crid=1V9X0MRZYXJKF&keywords=m2*6+moeren&sprefix=m2+6+nuts%2Caps%2C65&sr=8-6
 
 
-### 3.2. Notes on steps:
+### 4.2. Notes on steps:
 
 It's a lot easier to do with breadboard.
 
@@ -104,7 +110,7 @@ Tools needed:
 This replaces old style remotes for led lights:
 ![Alt text](/pictures/replacement.jpg "")
 
-### 3.3. Antenna
+### 4.3. Antenna
 
 For antenna I used regular copper wire that is normally used for wiring lights inside house.
 Any copper wire will work if it's held straight (including the jumper cables above, I tried, they work fine)

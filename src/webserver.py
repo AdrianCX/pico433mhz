@@ -6,38 +6,51 @@ import rfdevice
 import config
 import machine
 
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect(config.WIFI_SSID, config.WIFI_PASSWORD)
+def wait_wlan(wlan):
+    max_wait = 10
+    while max_wait > 0:
+        if wlan.status() < 0 or wlan.status() >= 3:
+            break
+        max_wait -= 1
+        print('waiting for connection...')
+        time.sleep(1)
 
-max_wait = 10
-while max_wait > 0:
-    if wlan.status() < 0 or wlan.status() >= 3:
-        break
-    max_wait -= 1
-    print('waiting for connection...')
-    time.sleep(1)
+    if wlan.status() != 3:
+        print("Failed setting up wifi, will restart in 30 seconds")
+        time.sleep(30)
+        machine.reset()
 
-if wlan.status() != 3:
-    print("Failed connecting to wifi, will restart in 30 seconds")
-    time.sleep(30)
-    machine.reset()
-else:
-    status = wlan.ifconfig()
-    print('connected with ip = ' + status[0] )
+def setup_ap():
+    wlan = network.WLAN(network.AP_IF)
+    wlan.config(essid=config.WIFI_SSID, password=config.WIFI_PASSWORD) 
+    wlan.active(True)
+    wait_wlan(wlan)
+    
+    print('set up access point:', config.WIFI_SSID, 'with ip = ', wlan.ifconfig()[0])
+    return wlan
 
-addr = socket.getaddrinfo('0.0.0.0', config.PORT)[0][-1]
+def connect_wlan():
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(False)
+    wlan.disconnect()
+    
+    wlan.active(True)
+    wlan.connect(config.WIFI_SSID, config.WIFI_PASSWORD)
+
+    wait_wlan(wlan)
+    
+    print('connected to wifi:', config.WIFI_SSID, 'with ip = ', wlan.ifconfig()[0])
+    return wlan
+
+wlan = connect_wlan() if not config.WIFI_AP_MODE else setup_ap()
 
 s = socket.socket()
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(addr)
-s.listen(1)
-
-print('listening on ', status[0], ':', config.PORT)
+s.bind(socket.getaddrinfo('0.0.0.0', config.PORT)[0][-1])
+s.listen(10)
 
 sender = rfdevice.RFDevice()
 sender.enable_tx()
-    
 receiver = rfdevice.RFDevice()
 
 while True:

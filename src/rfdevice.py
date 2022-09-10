@@ -54,8 +54,6 @@ class RFDevice:
         self.rx_bitlength = None
         self.rx_pulselength = None
 
-        print("Using GPIO " + str(gpio))
-
     def cleanup(self):
         """Disable TX and RX and clean up GPIO."""
         if self.tx_enabled:
@@ -120,7 +118,7 @@ class RFDevice:
                     nexacode = nexacode + "10"
             rawcode = nexacode
             self.tx_length = 64
-        print("TX code: " + str(code))
+        print("TX code: ", str(code), " binary: ", rawcode)
         status = self.tx_bin(rawcode)
 
         # We must not transmit too often, we also need to make sure we don't corrupt our current message, so wait a bit more between messages if some are chained by caller
@@ -136,7 +134,6 @@ class RFDevice:
 
     def tx_bin(self, rawcode):
         """Send a binary code."""
-        print("TX bin: " + str(rawcode))
         for _ in range(0, self.tx_repeat):
             if self.tx_proto == 6:
                 if not self.tx_sync():
