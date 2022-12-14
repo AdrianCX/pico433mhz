@@ -77,7 +77,7 @@ class RFDevice:
         """Disable TX, reset GPIO."""
         if self.tx_enabled:
             # set up GPIO pin as input for safety
-            self.gpio = Pin(RX_PIN, Pin.IN, Pin.PULL_DOWN)
+            self.gpio = Pin(config.TX_PIN, Pin.IN, Pin.PULL_DOWN)
             self.tx_enabled = False
             print("TX disabled")
         return True
