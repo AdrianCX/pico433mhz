@@ -62,6 +62,9 @@ while True:
             request = cl.recv(1024)
             m = re.search("GET /(receive|send)[/]?([0-9]*)?[/]?([0-9]*)[/]?([0-9]*)? HTTP", str(request))
         
+            if m is None:
+                raise Exception("Request did not match regex 'GET /(receive|send)[/]?([0-9]*)?[/]?([0-9]*)[/]?([0-9]*)? HTTP'\r\nUser either did not request HTTP, or sent to a unknown URL\r\nFull Request: " + str(request) + "\r\n")
+                
             if m.group(1) == "receive":
                 receiver.enable_rx()
                 cl.sendall('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n[')
