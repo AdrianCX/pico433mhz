@@ -28,10 +28,12 @@ class RFDevice:
     """Representation of a GPIO RF device."""
 
     # pylint: disable=too-many-instance-attributes,too-many-arguments
-    def __init__(self, gpio = None,
+    def __init__(self, rx_pin=None, tx_pin=None,
                  tx_proto=1, tx_pulselength=None, tx_repeat=10, tx_length=24, rx_tolerance=80):
         """Initialize the RF device."""
-        self.gpio = gpio
+        self.gpio = None
+        self.rx_pin = rx_pin
+        self.tx_pin = tx_pin
         self.tx_enabled = False
         self.tx_proto = tx_proto
         if tx_pulselength:
@@ -69,7 +71,7 @@ class RFDevice:
             return False
         if not self.tx_enabled:
             self.tx_enabled = True
-            self.gpio = Pin(config.TX_PIN, Pin.OUT)
+            self.gpio = Pin(self.tx_pin, Pin.OUT)
             print("TX enabled")
         return True
 
@@ -77,7 +79,7 @@ class RFDevice:
         """Disable TX, reset GPIO."""
         if self.tx_enabled:
             # set up GPIO pin as input for safety
-            self.gpio = Pin(config.TX_PIN, Pin.IN, Pin.PULL_DOWN)
+            self.gpio = Pin(self.tx_pin, Pin.IN, Pin.PULL_DOWN)
             self.tx_enabled = False
             print("TX disabled")
         return True
@@ -203,9 +205,9 @@ class RFDevice:
             return False
         if not self.rx_enabled:
             self.rx_enabled = True
-            self.gpio = Pin(config.RX_PIN, Pin.IN, Pin.PULL_DOWN)
+            self.gpio = Pin(self.rx_pin, Pin.IN, Pin.PULL_DOWN)
             self.gpio.irq(handler=self.rx_callback, trigger=Pin.IRQ_FALLING | Pin.IRQ_RISING)
-            print("RX enabled, pin: " + str(config.RX_PIN))
+            print("RX enabled, pin: " + str(self.rx_pin))
         return True
 
     def disable_rx(self):
