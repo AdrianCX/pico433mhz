@@ -1,6 +1,5 @@
 import time
 import rfdevice
-import config
 import machine
 import protocol
 

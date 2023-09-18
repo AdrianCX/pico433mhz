@@ -3,7 +3,6 @@ Sending and receiving 433/315Mhz signals with low-cost GPIO RF Modules on a Rasp
 This is adjusted code for raspberry pi pico, original is from: https://github.com/milaq/rpi-rf
 """
 
-import config
 import time
 from machine import Pin
 from collections import namedtuple
