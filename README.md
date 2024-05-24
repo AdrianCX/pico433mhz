@@ -2,12 +2,17 @@ Simple raspberry pi pico 433mhz receiver/transmitter controlled via http
 
 ![Alt text](/pictures/endproduct.jpg "")
 
-# 1. Possible issues
+# 1. General notes:
 
-a. Pico wireless connection seems unstable with micropython
+More fun projects: https://pico.otilia.dev/
+I did eventually solder the wires to the pico and the antenna to the transmitter for reliability.
 
-Ping works on and off (10 seconds yes, 10 seconds no), requests sometimes time out.
-Avoided on my setup by setting "DTIM Interval", "Delivery Traffic Indication Message Interval" to 1 on my router.
+Transmit range is about 5m with antenna, receive is 3cm
+
+I am controlling this via telegram
+![Alt text](/pictures/433mhz_5.jpg "")
+
+RF Device code in rfdevice.py is adjusted code for raspberry pi pico, original is from: https://github.com/milaq/rpi-rf
 
 # 2. How to use when all set up
 
