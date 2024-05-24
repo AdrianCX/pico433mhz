@@ -4,15 +4,17 @@ Simple raspberry pi pico 433mhz receiver/transmitter controlled via http
 
 # 1. General notes:
 
-More fun projects: https://pico.otilia.dev/
-I did eventually solder the wires to the pico and the antenna to the transmitter for reliability.
+a. More fun projects: https://pico.otilia.dev/
 
-Transmit range is about 5m with antenna, receive is 3cm
+b. I did eventually solder the wires to the pico and the antenna to the transmitter for reliability.
 
-I am controlling this via telegram
+c. I am controlling this via telegram
 ![Alt text](/pictures/433mhz_5.jpg "")
 
-RF Device code in rfdevice.py is adjusted code for raspberry pi pico, original is from: https://github.com/milaq/rpi-rf
+d. Transmit range is about 5m with antenna, receive is 3cm
+The antenna I used is very basic, you can find a better one in this fork: https://github.com/bnthn/pico433mhzMQTTGateway
+
+e. RF Device code in rfdevice.py is adjusted code for raspberry pi pico, original is from: https://github.com/milaq/rpi-rf
 
 # 2. How to use when all set up
 
